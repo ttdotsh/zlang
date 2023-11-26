@@ -70,7 +70,7 @@ pub enum Token {
 
     /* Keywords */
     #[token("ngl")]
-    VarDef,
+    VarDec,
 
     #[token("finna")]
     FnDef,
@@ -103,6 +103,7 @@ fn as_identifier(lex: &mut Lexer<Token>) -> Option<String> {
 mod test {
     use super::Token;
     use logos::Logos;
+    use pretty_assertions::assert_eq;
 
     #[test]
     fn test_idents() {

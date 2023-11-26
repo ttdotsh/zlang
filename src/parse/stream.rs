@@ -5,8 +5,8 @@ pub struct TokenStream<'source> {
     tokens: Lexer<'source, Token>,
 }
 
-impl<'source> TokenStream<'source> {
-    pub fn new(src: &'source str) -> TokenStream<'source> {
+impl<'src> TokenStream<'src> {
+    pub fn new(src: &'src str) -> TokenStream<'src> {
         let lex = Token::lexer(src);
         TokenStream { tokens: lex }
     }
@@ -22,7 +22,7 @@ impl Iterator for TokenStream<'_> {
 
 #[cfg(test)]
 mod test {
-    use super::{Token, TokenStream};
+    use super::{Token::*, TokenStream};
 
     #[test]
     fn test_stream() {
@@ -44,50 +44,50 @@ mod test {
         "#;
 
         let expected = vec![
-            Token::VarDef,
-            Token::Ident("foo".into()),
-            Token::Assign,
-            Token::Int(5),
-            Token::StmtEnd,
-            Token::VarDef,
-            Token::Ident("bar".into()),
-            Token::Assign,
-            Token::Str("hello".into()),
-            Token::StmtEnd,
-            Token::FnDef,
-            Token::Ident("add".into()),
-            Token::Ident("x".into()),
-            Token::Comma,
-            Token::Ident("y".into()),
-            Token::Assign,
-            Token::ScopeStart,
-            Token::Ident("x".into()),
-            Token::Plus,
-            Token::Ident("y".into()),
-            Token::ScopeEnd,
-            Token::VarDef,
-            Token::Ident("baz".into()),
-            Token::Assign,
-            Token::Ident("add".into()),
-            Token::Ident("foo".into()),
-            Token::Comma,
-            Token::Int(5),
-            Token::StmtEnd,
-            Token::If,
-            Token::Ident("baz".into()),
-            Token::GreaterThan,
-            Token::Or,
-            Token::Equal,
-            Token::Int(10),
-            Token::ScopeStart,
-            Token::Ident("go_off".into()),
-            Token::Ident("bar".into()),
-            Token::StmtEnd,
-            Token::Else,
-            Token::Ident("go_off".into()),
-            Token::Str("sheesh".into()),
-            Token::StmtEnd,
-            Token::ScopeEnd,
+            VarDec,
+            Ident("foo".into()),
+            Assign,
+            Int(5),
+            StmtEnd,
+            VarDec,
+            Ident("bar".into()),
+            Assign,
+            Str("hello".into()),
+            StmtEnd,
+            FnDef,
+            Ident("add".into()),
+            Ident("x".into()),
+            Comma,
+            Ident("y".into()),
+            Assign,
+            ScopeStart,
+            Ident("x".into()),
+            Plus,
+            Ident("y".into()),
+            ScopeEnd,
+            VarDec,
+            Ident("baz".into()),
+            Assign,
+            Ident("add".into()),
+            Ident("foo".into()),
+            Comma,
+            Int(5),
+            StmtEnd,
+            If,
+            Ident("baz".into()),
+            GreaterThan,
+            Or,
+            Equal,
+            Int(10),
+            ScopeStart,
+            Ident("go_off".into()),
+            Ident("bar".into()),
+            StmtEnd,
+            Else,
+            Ident("go_off".into()),
+            Str("sheesh".into()),
+            StmtEnd,
+            ScopeEnd,
         ];
 
         let stream = TokenStream::new(input);
